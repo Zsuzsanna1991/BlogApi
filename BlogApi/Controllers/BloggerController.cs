@@ -2,6 +2,7 @@
 using BlogApi.Models.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Controllers
 {
@@ -113,6 +114,42 @@ namespace BlogApi.Controllers
                     }
 
                     return NotFound(new { message = "Sikertelen törlés", result = blogger });
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message, result = "" });
+
+            }
+        }
+
+
+        [HttpPut]
+        public ActionResult PutBlogger(int id, UpdateBloggerDto updateBloggerDto)
+        {
+            try
+            {
+                using (var context = new BlogDbContext())
+                {
+                    var existingblogger = context.bloggers.FirstOrDefault(x => x.Id == id);
+
+                    if(existingblogger != null)
+                    {
+                        existingblogger.Name = updateBloggerDto.Name;
+                        existingblogger.Password = updateBloggerDto.Password;
+                        existingblogger.Email = updateBloggerDto.Email;
+                        existingblogger.ModDate = DateTime.Now;
+
+                        context.bloggers.Update(existingblogger);
+                        context.SaveChanges();
+
+                        return Ok(new { message = "Sikeres módosítás", result = existingblogger });
+
+                    }
+
+                    return NotFound(new { message = "Sikertelen módosítás", result = existingblogger });
 
                 }
             }
