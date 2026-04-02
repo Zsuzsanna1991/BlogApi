@@ -194,5 +194,32 @@ namespace BlogApi.Controllers
         }
 
 
+        [HttpGet("bloggerWidthOwnPost")]
+        public ActionResult GetBloggerWithOwnPost(int id)
+        {
+            try
+            {
+                using (var context = new BlogDbContext())
+                {
+                    var bloggersWidthOwnPost = context.bloggers.Include(x => x.Posts).FirstOrDefault(x => x.Id == id);
+
+                    if (bloggersWidthOwnPost != null)
+                    {
+                        return Ok(new { message = "Sikeres lekérdezés", result = bloggersWidthOwnPost });
+
+                    }
+                    return NotFound(new { message = "Sikertelen lekérdezés", result = bloggersWidthOwnPost });
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message, result = "" });
+
+            }
+        }
+
+
     }
 }
