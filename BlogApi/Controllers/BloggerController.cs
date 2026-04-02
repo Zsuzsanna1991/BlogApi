@@ -160,5 +160,39 @@ namespace BlogApi.Controllers
 
             }
         }
+
+
+
+
+        //Összetett lekérdezés
+        //Az összes blogger összes bejegyzését kérdezzük le.
+
+        [HttpGet("all")]
+        public ActionResult GetAllBloggerAllPost()
+        {
+            try
+            {
+                using (var context = new BlogDbContext())
+                {
+                    var bloggersWidthPosts = context.bloggers.Include(x => x.Posts).ToList();
+
+                    if (bloggersWidthPosts != null)
+                    {
+                        return Ok(new {message = "Sikeres lekérdezés", result = bloggersWidthPosts});
+
+                    }
+                    return NotFound(new { message = "Sikertelen lekérdezés", result = bloggersWidthPosts });
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message, result = "" });
+            }
+        }
+
+
     }
 }
