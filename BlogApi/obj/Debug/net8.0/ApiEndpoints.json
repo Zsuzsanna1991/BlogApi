@@ -122,6 +122,27 @@
   },
   {
     "ContainingType": "BlogApi.Controllers.PostController",
+    "Method": "PutPost",
+    "RelativePath": "api/Post",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "updatePost",
+        "Type": "BlogApi.Models.Dtos.UpdatePostDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApi.Controllers.PostController",
     "Method": "GetPostById",
     "RelativePath": "api/Post/byid",
     "HttpMethod": "GET",

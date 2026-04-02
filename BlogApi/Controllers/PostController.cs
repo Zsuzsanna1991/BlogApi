@@ -120,5 +120,41 @@ namespace BlogApi.Controllers
                 return StatusCode(404, new { message = ex.Message, result = "" });
             }
         }
+
+
+
+        [HttpPut]
+        public ActionResult PutPost(int id, UpdatePostDto updatePost)
+        {
+            try
+            {
+                using (var context = new BlogDbContext())
+                {
+                    var post = context.post.FirstOrDefault(y => y.Id == id);
+
+                    if (post != null)
+                    {
+                        post.Title = updatePost.Title;
+                        post.Content =  updatePost.Content;
+                        post.Category = updatePost.Category;
+
+                        context.post.Update(post);
+                        context.SaveChanges();
+
+                        return Ok(new { message = "Sikeres frissítés", result = post });
+                    }
+
+                    return StatusCode(404, new { message = "Nincs ilyen id", result = post });
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(404, new { message = ex.Message, result = "" });
+            }
+        }
     }
 }
