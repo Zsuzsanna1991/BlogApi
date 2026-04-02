@@ -19,5 +19,9 @@ namespace BlogApi.Models
 
         public DateTime RegTime { get; set; } = DateTime.Now;
         public DateTime ModDate { get; set; } = DateTime.Now;
+
+
+        //Kapcsolat kialakítása
+        public ICollection<Post> Posts {  get; set; } = new List<Post>();
     }
 }
