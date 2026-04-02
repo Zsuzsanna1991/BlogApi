@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BlogApi.Models
 {
@@ -17,6 +18,7 @@ namespace BlogApi.Models
 
         //Kapcsolat kialakítása
         public int BloggerId { get; set; } //Foreign Key
+        [JsonIgnore]
         public Blogger Blogger { get; set; } //hivatkozás a Blogger osztályra
     }
 }

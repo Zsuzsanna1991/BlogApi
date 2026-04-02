@@ -15,7 +15,7 @@ namespace BlogApi.Models
         }
 
         public DbSet<Blogger> bloggers { get; set; }   //A DbSet határozza meg a tábla nevét, itt: bloggers
-        public DbSet<Post> posts { get; set; }
+        public DbSet<Post> post { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
